@@ -138,6 +138,7 @@ const val SUPABASE_KEY = "YOUR_ANON_KEY"</code></pre>
   <li><strong>Search:</strong> Visual-only implementation (filtering planned for v2).</li>
   <li><strong>Avatars:</strong> Currently uses initial-based placeholders.</li>
   <li><strong>Offline:</strong> Full offline caching for the feed is in development.</li>
+  <li><strong>Offline:</strong> Themes set Up is still not completed.</li>
 </ul>
 
 <hr>
