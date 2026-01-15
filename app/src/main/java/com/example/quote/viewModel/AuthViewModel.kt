@@ -58,4 +58,16 @@ class AuthViewModel : ViewModel() {
             }
         }
     }
+
+    // Add this function to your AuthViewModel class
+    fun logout(onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            try {
+                auth.signOut()
+                onSuccess()
+            } catch (e: Exception) {
+                errorMessage = e.message
+            }
+        }
+    }
 }

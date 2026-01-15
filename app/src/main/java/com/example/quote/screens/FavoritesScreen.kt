@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -25,8 +27,18 @@ fun FavoritesScreen(
     viewModel: QuoteViewModel,
     onNavigateBack: () -> Unit
 ) {
-    // Logic: Filter the main list to find only the quotes that are in our favorites list
-    // 'remember' ensures we don't re-calculate this on every small animation frame
+    val context = LocalContext.current
+
+    // --- THEME COLORS (Consistent with Home) ---
+    val deepBlue = Color(0xFF1A1A2E)
+    val accentPink = Color(0xFFE94057)
+
+    // Background Gradient
+    val bgGradient = Brush.verticalGradient(
+        colors = listOf(deepBlue, Color.Black)
+    )
+
+    // Filter Logic
     val favoriteQuotes = remember(viewModel.quotes, viewModel.favoriteIds) {
         viewModel.quotes.filter { quote ->
             viewModel.favoriteIds.contains(quote.id)
@@ -35,32 +47,42 @@ fun FavoritesScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("My Collection") },
+            CenterAlignedTopAppBar(
+                title = {
+                    Text(
+                        "My Collection",
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 1.sp
+                        )
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = "Back",
+                            tint = Color.White
                         )
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = Color.Transparent, // Transparent
+                    titleContentColor = Color.White
                 )
             )
-        }
+        },
+        containerColor = Color.Transparent // Important for gradient visibility
     ) { paddingValues ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
-                .background(Color(0xFFF5F5F5)), // Consistent background
+                .background(bgGradient) // Apply Dark Gradient
+                .padding(paddingValues),
             contentAlignment = Alignment.Center
         ) {
             if (favoriteQuotes.isEmpty()) {
-                // --- Empty State UI ---
+                // --- Dark Theme Empty State ---
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
@@ -69,37 +91,41 @@ fun FavoritesScreen(
                     Icon(
                         imageVector = Icons.Default.FavoriteBorder,
                         contentDescription = "No Favorites",
-                        modifier = Modifier.size(64.dp),
-                        tint = Color.Gray
+                        modifier = Modifier.size(80.dp),
+                        tint = Color.White.copy(alpha = 0.2f) // Subtle ghostly icon
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(24.dp))
                     Text(
                         text = "No favorites yet",
-                        fontSize = 20.sp,
+                        fontSize = 22.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color.Gray
+                        color = Color.White
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Save quotes you love to see them here.",
+                        text = "Save quotes you love to build your personal collection.",
                         textAlign = TextAlign.Center,
-                        color = Color.Gray
+                        color = Color.White.copy(alpha = 0.6f),
+                        style = MaterialTheme.typography.bodyLarge
                     )
                 }
             } else {
                 // --- List of Favorites ---
                 LazyColumn(
                     contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier.fillMaxSize()
                 ) {
                     items(favoriteQuotes) { quote ->
+                        // Re-using the beautiful QuoteCard from your Home Screen
                         QuoteCard(
                             quote = quote,
-                            isFavorite = true, // It's always true in this screen!
+                            isFavorite = true, // Always filled in this screen
                             onToggleFavorite = {
-                                // This will remove it from the list immediately
                                 viewModel.toggleFavorite(quote)
+                            },
+                            onShare = {
+                                shareQuote(context, quote)
                             }
                         )
                     }

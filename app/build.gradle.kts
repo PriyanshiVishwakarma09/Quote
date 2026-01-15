@@ -76,4 +76,17 @@ dependencies {
     // --- 5. DESUGARING (Essential for crashes on older phones) ---
     coreLibraryDesugaring(libs.desugar.jdk.libs)
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+
+    implementation("androidx.navigation:navigation-compose:2.8.0")
+    // 1. Storage for Settings (Theme, Time)
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    // 2. Background Tasks (Notifications)
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
+
+    // 3. Widget Library (Glance)
+    implementation("androidx.glance:glance-appwidget:1.1.0")
+    implementation("androidx.glance:glance-material3:1.1.0")
+
+    implementation("androidx.compose.material:material-icons-extended:1.6.0")
 }
