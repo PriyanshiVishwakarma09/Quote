@@ -100,7 +100,7 @@ auth.signInWith(Email) {
 <ol>
   <li>
     <strong>Clone & Open</strong>
-    <pre><code>git clone https://github.com/your-username/QuoteVault.git</code></pre>
+    <pre><code>git clone https://github.com/PriyanshiVishwakarma09/Quote.git</code></pre>
   </li>
 
   <li>
