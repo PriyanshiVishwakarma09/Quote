@@ -1,4 +1,4 @@
-# ❝ QuoteVault
+# ❝ Quote
 
 <div align="center">
 
@@ -7,7 +7,7 @@
   ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
   ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 
-  **A Premium, Glassmorphic Quote Discovery App for Android**
+  **A Premium, Quote Discovery App for Android**
 
 </div>
 
@@ -15,7 +15,7 @@
 
 ## ✨ Overview
 
-**QuoteVault** reimagines the quote collection experience. Moving away from standard Material Design, it embraces a **"Dark Glassmorphism"** aesthetic—featuring deep navy gradients, frosted glass UI elements, and glowing accents.
+**Quote** reimagines the quote collection experience. Moving away from standard Material Design, it embraces a **"Dark Glassmorphism"** aesthetic—featuring deep navy gradients, frosted glass UI elements, and glowing accents.
 
 Beyond its looks, it is a fully functional cloud-connected app featuring **real-time sync**, **daily background updates**, and **home screen widgets**.
 
